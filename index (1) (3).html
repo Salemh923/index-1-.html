@@ -12,6 +12,19 @@
     href="https://fonts.googleapis.com/css2?family=Almarai&display=swap"
     rel="stylesheet"
   />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.html(document.body, {
+        callback: function (doc) {
+          doc.save("فاتورة.pdf");
+        },
+        margin: [10, 10, 10, 10],
+      });
+    }
+  </script>
   <style>
     body {
       font-family: 'Almarai', sans-serif;
@@ -112,30 +125,8 @@
       <p>المنتجات مطبوعة حسب الطلب وتم تصميمها خصيصاً لكم.</p>
       <p>سيتم شحن المنتجات بعد استلام الدفعة.</p>
     </section>
+
+    <button onclick="downloadPDF()" class="bg-indigo-600 text-white py-2 px-4 mt-6 rounded">تحميل الفاتورة PDF</button>
   </div>
-</body><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<div class="text-center my-6">
-  <button onclick="downloadPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">
-    تحميل الفاتورة PDF
-  </button>
-</div>
-
-<script>
-  async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'pt', 'a4');
-
-    const invoice = document.body; // يمكنك تغييره إلى div محدد إذا أردت
-
-    await doc.html(invoice, {
-      callback: function (doc) {
-        doc.save("فاتورة.pdf");
-      },
-      x: 10,
-      y: 10,
-      autoPaging: true
-    });
-  }
-</script>
+</body>
 </html>
